@@ -5,8 +5,7 @@
 
 ![Go](https://img.shields.io/badge/go-%2300ADD8.svg?style=for-the-badge&logo=go&logoColor=white)
 # GofeR
-A **Go** reactive library inspired by [Vue.js]
-(https://vuejs.org/guide/extras/reactivity-in-depth.html).
+A **Go** reactive library inspired by [Vue.js](https://vuejs.org/guide/extras/reactivity-in-depth.html).
 
 
 ## Install
