@@ -1,19 +1,24 @@
 package gofer
 
+import (
+	"reflect"
+)
+
 type effect func()
 
 var currentActiveEffect effect
 
 type dep struct {
-	subscribers []effect
+	subscribers map[uintptr]effect
 }
 
 func newDep() *dep {
-	return &dep{}
+	return &dep{subscribers: make(map[uintptr]effect)}
 }
 
-func (d *dep) track() {
-	d.subscribers = append(d.subscribers, currentActiveEffect)
+func (d *dep) track(update effect) {
+	key := reflect.ValueOf(update).Pointer()
+	d.subscribers[key] = currentActiveEffect
 }
 
 func (d *dep) trigger() {
@@ -35,7 +40,7 @@ func Ref[T any](initialValue T) *refImpl[T] {
 }
 
 func (r *refImpl[T]) GetValue() T {
-	r.dep.track()
+	r.dep.track(currentActiveEffect)
 	return r.value
 }
 
@@ -44,12 +49,14 @@ func (r *refImpl[T]) SetValue(newValue T) {
 	r.dep.trigger()
 }
 
+type computed[T any] struct {
+}
+
 func WatchEffect(update effect) {
 	var wrappedUpdate func()
 	wrappedUpdate = func() {
 		currentActiveEffect = wrappedUpdate
 		update()
-		currentActiveEffect = nil
 	}
 	wrappedUpdate()
 }
