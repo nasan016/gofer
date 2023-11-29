@@ -6,11 +6,18 @@ import (
 )
 
 func main() {
-	x := gf.Ref("Hello")
+	price := gf.Ref(2)
+	quantity := gf.Ref(1000)
 
-	gf.WatchEffect(func() {
-		fmt.Println(x.GetValue())
+	revenue := gf.Computed(func() int {
+		return price.GetValue() * quantity.GetValue()
 	})
 
-	x.SetValue("World!")
+	gf.WatchEffect(func() {
+		fmt.Println("revenue:", revenue.GetValue())
+	})
+
+	price.SetValue(price.GetValue() / 2)
+	price.SetValue(price.GetValue() * 10)
+	quantity.SetValue(quantity.GetValue() + 500)
 }

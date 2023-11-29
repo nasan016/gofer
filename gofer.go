@@ -23,10 +23,15 @@ func (d *dep) track(update effect) {
 
 func (d *dep) trigger() {
 	for _, effect := range d.subscribers {
-		effect()
+		if effect != nil {
+			effect()
+		}
 	}
 }
 
+/*
+refImpl (ref) is a reactive primitive that can be read and written onto
+*/
 type refImpl[T any] struct {
 	dep   *dep
 	value T
@@ -49,9 +54,33 @@ func (r *refImpl[T]) SetValue(newValue T) {
 	r.dep.trigger()
 }
 
+/*
+computed is a ref that is computed by a getter
+*/
+
 type computed[T any] struct {
+	dep     *dep
+	compute func() T
+	refs    []*refImpl[T]
 }
 
+func Computed[T any](computedValue func() T) *computed[T] {
+
+	return &computed[T]{
+		dep:     newDep(),
+		compute: computedValue,
+	}
+}
+
+func (c *computed[T]) GetValue() T {
+	c.dep.track(currentActiveEffect)
+	return c.compute()
+}
+
+/*
+Runs a function immediately while reactively tracking its dependencies
+and re-runs it whenever the dependencies are changed.
+*/
 func WatchEffect(update effect) {
 	var wrappedUpdate func()
 	wrappedUpdate = func() {
