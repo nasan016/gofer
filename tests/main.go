@@ -6,14 +6,11 @@ import (
 )
 
 func main() {
-	x := gf.Ref(1)
+	x := gf.Ref("Hello")
 
 	gf.WatchEffect(func() {
 		fmt.Println(x.GetValue())
 	})
 
-	x.SetValue(2)
-	x.SetValue(3)
-	x.SetValue(1)
-	x.SetValue(x.GetValue() + 5)
+	x.SetValue("World!")
 }
