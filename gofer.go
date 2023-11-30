@@ -30,26 +30,26 @@ func (d *dep) trigger() {
 }
 
 /*
-refImpl (ref) is a reactive primitive that can be read and written onto
+RefImpl (ref) is a reactive primitive that can be read and written onto
 */
-type refImpl[T any] struct {
+type RefImpl[T any] struct {
 	dep   *dep
 	value T
 }
 
-func Ref[T any](initialValue T) *refImpl[T] {
-	return &refImpl[T]{
+func Ref[T any](initialValue T) *RefImpl[T] {
+	return &RefImpl[T]{
 		dep:   newDep(),
 		value: initialValue,
 	}
 }
 
-func (r *refImpl[T]) GetValue() T {
+func (r *RefImpl[T]) GetValue() T {
 	r.dep.track(currentActiveEffect)
 	return r.value
 }
 
-func (r *refImpl[T]) SetValue(newValue T) {
+func (r *RefImpl[T]) SetValue(newValue T) {
 	r.value = newValue
 	r.dep.trigger()
 }

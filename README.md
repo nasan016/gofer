@@ -32,8 +32,9 @@ GofeR brings the following reactive primitives from Vue to Go:
 * [computed](https://vuejs.org/api/reactivity-core.html#computed)
 * [watchEffect](https://vuejs.org/api/reactivity-core.html#watcheffect)
 
-## Example
+## Examples
 
+**Revenue**
 ```go
 package main
 
@@ -69,5 +70,50 @@ revenue: 1000
 revenue: 10000
 revenue: 15000
 ```
+
+**Increment**
+```go
+package main
+
+import (
+    "fmt"
+    gf "github.com/nasan016/gofer"
+)
+
+func main() {
+    x := gf.Ref(0)
+    y := gf.Ref(0)
+
+    gf.WatchEffect(func() {
+        fmt.Println("x: ", x.GetValue())
+        fmt.Println("y: ", y.GetValue())
+        fmt.Println("")
+    })
+
+    increment(x)
+    increment(y)
+    increment(x)
+}
+
+func increment(ref *gf.RefImpl[int]) {
+    ref.SetValue(ref.GetValue() + 1)
+}
+
+```
+
+**Output**
+```shell
+x: 0
+y: 0
+
+x: 1
+y: 0
+
+x: 1
+y: 1
+
+x: 2
+y: 1
+```
 ---
-Checkout [Effekt](https://github.com/bendgk/effekt) by [bendgk](https://github.com/bendgk) :heart:
+Checkout [Effekt](https://github.com/bendgk/effekt) by [bendgk](https://github.com/bendgk)
