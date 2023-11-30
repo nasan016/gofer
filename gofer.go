@@ -57,11 +57,9 @@ func (r *refImpl[T]) SetValue(newValue T) {
 /*
 computed is a ref that is computed by a getter
 */
-
 type computed[T any] struct {
 	dep     *dep
 	compute func() T
-	refs    []*refImpl[T]
 }
 
 func Computed[T any](computedValue func() T) *computed[T] {
