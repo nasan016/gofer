@@ -69,3 +69,5 @@ revenue: 1000
 revenue: 10000
 revenue: 15000
 ```
+---
+Checkout [Effekt](https://github.com/bendgk/effekt) by [bendgk](https://github.com/bendgk) :heart:
