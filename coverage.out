@@ -1,0 +1,14 @@
+mode: set
+github.com/nasan016/gofer/gofer.go:15.20,17.2 1 1
+github.com/nasan016/gofer/gofer.go:19.36,22.2 2 1
+github.com/nasan016/gofer/gofer.go:24.25,25.39 1 1
+github.com/nasan016/gofer/gofer.go:25.39,26.20 1 1
+github.com/nasan016/gofer/gofer.go:26.20,28.4 1 1
+github.com/nasan016/gofer/gofer.go:40.45,45.2 1 1
+github.com/nasan016/gofer/gofer.go:47.35,50.2 2 1
+github.com/nasan016/gofer/gofer.go:52.43,55.2 2 1
+github.com/nasan016/gofer/gofer.go:65.59,71.2 1 1
+github.com/nasan016/gofer/gofer.go:73.36,76.2 2 1
+github.com/nasan016/gofer/gofer.go:82.33,84.25 2 1
+github.com/nasan016/gofer/gofer.go:84.25,87.3 2 1
+github.com/nasan016/gofer/gofer.go:88.2,88.17 1 1
